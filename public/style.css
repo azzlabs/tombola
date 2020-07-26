@@ -1,0 +1,165 @@
+/* Montserrat font */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: #F5EACE;
+    font-family: "Montserrat", sans-serif;
+}
+tr, td {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-collapse: inherit;
+    border-spacing: 0;
+}
+h1.title {
+    margin: 20px 0;
+    text-shadow: 1px 2px #C63B3D;
+    color: #D1574A; 
+    font-size: 80px;
+}
+.container {
+    margin: 0 auto;
+    width: 1320px;
+}
+.col {
+    margin-left: 2%; 
+    width: 100%;
+    float: left;
+}
+.col:first-child {
+    margin-left: 0; 
+}
+.one.col,
+.one.col    { width: 4.66666666667%; }
+.two.col    { width: 13.3333333333%; }
+.three.col  { width: 22%;            }
+.four.col   { width: 30.6666666667%; }
+.five.col   { width: 39.3333333333%; }
+.six.col    { width: 48%;            }
+.seven.col  { width: 56.6666666667%; }
+.eight.col  { width: 65.3333333333%; }
+.nine.col   { width: 74.0%;          }
+.ten.col    { width: 82.6666666667%; }
+.eleven.col { width: 91.3333333333%; }
+.twelve.col { width: 100%; margin-left: 0; }
+.table-container {
+    width: 100%;
+}
+.center-text {
+    text-align: center;
+}
+.number {
+    width: 54px;
+    height: 54px;
+    margin: 6px;
+    padding: 10px;
+	background-color: #fcf7eb;
+    border-radius: 50%;
+    font-size: 20px;
+    color: #bbb093;
+    text-align: center;
+    line-height: 36px;
+    transition: all .5s linear;
+}
+.number.called {
+    background: url('images/numero-bg.png') center;
+    background-size: cover;
+    color: #c01d00;
+    text-shadow: 0 0 50px rgba(255, 255, 255, 0.664);
+    font-size: 25px;
+    font-weight: 900;
+    font-family: "Montserrat", serif;
+}
+#last-called-holder {
+    margin: 0 auto;
+    width: 440px;
+    margin-top: 20px;
+    overflow: hidden;
+    max-height: 440px;
+}
+.called-number {
+    float: left;
+    margin: 10px;
+    width: 200px;
+    height: 200px;
+    border-radius: 150px;
+    background: url('images/numero-bg.png') center;
+    background-size: cover;
+}
+.called-number-container {
+    margin: 0 auto;
+    padding-top: 30px;
+    width: 140px;
+}
+.big-number {
+    float: left;
+    margin: 0 auto;
+    height: 140px;
+    width: 50%;
+    background: url('images/stencil-numbers.png');
+    background-size: cover;
+    background-position: 0.4%;
+}
+.big-number.n1 { background-position: 11.4%; }
+.big-number.n2 { background-position: 22%; }
+.big-number.n3 { background-position: 33%; }
+.big-number.n4 { background-position: 44.5%; }
+.big-number.n5 { background-position: 55%; }
+.big-number.n6 { background-position: 66.6%; }
+.big-number.n7 { background-position: 77.2%; }
+.big-number.n8 { background-position: 88%; }
+.big-number.n9 { background-position: 99%; }
+.last-called {
+    width: 100%;
+    background-color: #fcf7eb;
+    height: 610px;
+    border-radius: 10px;
+    padding: 16px;
+}
+.btn-call {
+    width: 100%;
+    font-family: "Montserrat", sans-serif;
+    font-size: 35px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+    padding: 20px;
+    background-color: #63925A;
+    box-shadow: 4px 4px #427035;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition:all .1s ease-out; 
+}
+.btn-call:hover {
+    background-color: #67985d;
+}
+.btn-call:active {
+    box-shadow: none;
+    transform: translate(4px, 4px);
+}
+.bottom-links {
+    color: #bbb093;
+    text-align: center;
+    margin-top: 20px;
+}
+.bottom-links .link {
+    cursor: pointer;
+}
+.bottom-links .link:hover {
+    border-bottom: 1px dashed #bbb093;
+}
+
+#tavola {
+    width: 100%;
+}
+#tavola tr:nth-child(3n) td {
+    padding-bottom: 20px;
+}
+#tavola tr td:nth-child(5n) {
+    padding-right: 20px;
+}
