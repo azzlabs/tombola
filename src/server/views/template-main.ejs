@@ -2,25 +2,25 @@
 <html>
 <head>
     <title>Tombola!</title>
-    <% if (viewport == true) { %><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><% } %>
-    <!--link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link href="/public/dernierjs.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <% if (viewport) { %><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><% } %>
+
+    <!-- Google font Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="/public/style.css" rel="stylesheet">
     <link rel="icon" href="/public/favicon.png" type="image/png" />
-    <meta name="theme-color" content="#100e17"-->
+    <meta name="theme-color" content="#100e17">
+    
+    <!-- jQuery -->
+    <script src="/public/vendor/jquery-3.4.1.min.js"></script>
 
-    <!-- Standardised web app manifest -->
-    <!--link rel="manifest" href="/public/appmanifest.json" /-->
+    <style>
 
-    <!-- Allow fullscreen mode on iOS devices. (These are Apple specific meta tags.) -->
-	<!--meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<link rel="apple-touch-icon" sizes="256x256" href="/public/dernier_ico_256x256.png" />
-	<meta name="HandheldFriendly" content="true" /-->
-	
-	<!-- Chrome for Android web app tags -->
-	<!--meta name="mobile-web-app-capable" content="yes" />
-	<link rel="shortcut icon" sizes="256x256" href="/public/dernier_ico_256x256.png" /-->
+        td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+    </style>
 </head>
 <body>
   <h1 class="main_title">Tombola!</h1>

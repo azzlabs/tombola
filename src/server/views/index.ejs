@@ -1,1 +1,9 @@
-Hello world :)
+<table>
+    <% for (var i = 0; i < options.card.length; i++) { %>
+        <tr>
+            <% for (var j = 0; j < options.card[i].length; j++) { %>
+                <td><%= card[i][j] != -1 ? options.card[i][j] : '' %></td>
+            <% } %>
+        </tr>
+    <% } %>
+</table>
