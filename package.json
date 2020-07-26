@@ -1,0 +1,31 @@
+{
+  "name": "tombola-ajax",
+  "version": "1.0.0",
+  "description": "Una tombola proiettabile scritta in JavaScript per NodeJS!",
+  "main": "src/server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azzlabs/tombola-ajax.git"
+  },
+  "keywords": [
+    "tombola",
+    "bingo",
+    "jquery",
+    "node",
+    "ajax"
+  ],
+  "author": "azzlabs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azzlabs/tombola-ajax/issues"
+  },
+  "homepage": "https://github.com/azzlabs/tombola-ajax#readme",
+  "dependencies": {
+    "ejs": "^3.1.3",
+    "express": "^4.17.1"
+  }
+}
