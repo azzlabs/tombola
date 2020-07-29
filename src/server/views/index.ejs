@@ -1,9 +1,31 @@
-<table>
-    <% for (var i = 0; i < options.card.length; i++) { %>
-        <tr>
-            <% for (var j = 0; j < options.card[i].length; j++) { %>
-                <td><%= card[i][j] != -1 ? options.card[i][j] : '' %></td>
-            <% } %>
-        </tr>
-    <% } %>
-</table>
+<h1 class="title center-text">TOMBOLA!</h1>
+<div class="container">
+    <div class="panel home center-text">
+        <div id="content_start">
+            <h1>Ciao!</h1>
+            <form id="room_select_form">
+                <label for="room_name" class="form-label">Per cominciare, scegli un nome per la stanza:</label>
+                <input type="text" name="room_name" placeholder="Nome stanza" class="form-input" autocomplete="off" id="room_name" />
+                <input type="submit" value="Entra" class="btn" />
+            </form>
+        </div>
+        <div id="content_msgs" class="hidden">
+            <div id="msgs_box"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $('#room_select_form').submit(function(e){
+        e.preventDefault();
+        $('#msgs_box').html('Nome: ' + $('#room_name').val());
+        switchPanel('#content_start', '#content_msgs');
+    });
+
+    function switchPanel(from, to) {
+        $(from).fadeOut(500, function() {
+            $(to).fadeIn(500);
+        });
+    }
+</script>

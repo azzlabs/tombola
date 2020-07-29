@@ -1,6 +1,7 @@
 const express = require('express');
 const Config = require('./config.js');
 const Cartelle = require('./cartelle.js');
+const Endpoint = require('./endpoint.js');
 const constants = new Config().config;
 
 // Setup an Express server
@@ -16,6 +17,14 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 app.get('/', function(req, res) {
+    res.render('template-main', { viewname: 'index', options: false, viewport: true });
+});
+app.get('/cartelle-sel', function(req, res) {
     cards = new Cartelle();
-    res.render('template-main', { viewname: 'index', options: { card: cards.generaCartella() }, viewport: true });
+    res.render('template-main', { viewname: 'show_cartelle', options: { card: cards.generaCartella() }, viewport: true });
+});
+
+app.get('/endpoint/:endpoint_name/', function(req, res) {
+    const ep = new Endpoint();
+    ep.dispatchEndpoint(res, req.params.endpoint_name, req.query);
 });

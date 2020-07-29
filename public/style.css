@@ -32,6 +32,10 @@ h1.title {
 .col:first-child {
     margin-left: 0; 
 }
+.col:after {
+    content: '.';
+    visibility: hidden;
+}
 .one.col,
 .one.col    { width: 4.66666666667%; }
 .two.col    { width: 13.3333333333%; }
@@ -45,6 +49,7 @@ h1.title {
 .ten.col    { width: 82.6666666667%; }
 .eleven.col { width: 91.3333333333%; }
 .twelve.col { width: 100%; margin-left: 0; }
+.clearfix { clear: both; }
 .table-container {
     width: 100%;
 }
@@ -112,33 +117,30 @@ h1.title {
 .big-number.n7 { background-position: 77.2%; }
 .big-number.n8 { background-position: 88%; }
 .big-number.n9 { background-position: 99%; }
-.last-called {
-    width: 100%;
-    background-color: #fcf7eb;
-    height: 610px;
-    border-radius: 10px;
-    padding: 16px;
-}
-.btn-call {
-    width: 100%;
+.btn {
     font-family: "Montserrat", sans-serif;
-    font-size: 35px;
-    font-weight: bold;
-    text-transform: uppercase;
     color: #ffffff;
-    padding: 20px;
     background-color: #63925A;
     box-shadow: 4px 4px #427035;
     border-radius: 5px;
     border: none;
     outline: none;
     cursor: pointer;
-    transition:all .1s ease-out; 
+    transition: all .1s ease-out; 
+    font-size: 1.2em;
+    padding: 8px 15px;
+    font-weight: bold;
 }
-.btn-call:hover {
+.btn.call {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 35px;
+    padding: 20px;
+}
+.btn:hover {
     background-color: #67985d;
 }
-.btn-call:active {
+.btn:active {
     box-shadow: none;
     transform: translate(4px, 4px);
 }
@@ -152,6 +154,44 @@ h1.title {
 }
 .bottom-links .link:hover {
     border-bottom: 1px dashed #bbb093;
+}
+.panel {
+    width: 100%;
+    background-color: #fcf7eb;
+    min-height: 500px;
+    border-radius: 10px;
+    padding: 16px;
+}
+.panel.last-called {
+    height: 610px;
+}
+.panel.home {
+    margin: 0 auto;
+    width: 450px;
+}
+.form-input {
+    font-family: "Montserrat", sans-serif;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 4px 4px rgba(255, 255, 255, 0.55);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: all .2s ease-out; 
+    font-size: 1.2em;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+}
+.form-input:focus {
+    box-shadow: 4px 4px #c01d002c;
+}
+.form-label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: block;
+}
+.hidden {
+    display: none;
 }
 
 #tavola {
