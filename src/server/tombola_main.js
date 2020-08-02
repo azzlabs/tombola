@@ -1,15 +1,29 @@
-module.exports = class Cartelle {
+module.exports = class Tombola {
+    constructor () {
+        this.RandTools = require('./rand_tools.js');
+    }
 
-    generaCartella() {
-        const RandTools = require('./rand_tools.js');
+    newGame (room_name) {
+        var game_data = { room_name: room_name, board: { remaining_numbers: [], called_list: [], last_called: -1 }, cards: [] };
 
-        const tools = new RandTools(); 
+        for (var i = 1; i <= 90; i++) 
+            game_data.board.remaining_numbers.push(i);
+
+        for (var i = 1; i <= 30; i++) 
+            game_data.cards.push({ taken: false, content: this.genCard() });
+
+        return game_data;
+    }
+
+    genCard () {
+
+        const tools = new this.RandTools(); 
         const extract_pool = [];
         var card = [[], [], []];
 
         // Inizializzo un array per colonna
         for (var i = 0; i < 9; i++) {
-            extract_pool[i] = new RandTools();
+            extract_pool[i] = new this.RandTools();
             extract_pool[i].distRandInit((i * 10) + 11, (i * 10) + 1);
         }
 

@@ -1,6 +1,5 @@
 const express = require('express');
 const Config = require('./config.js');
-const Cartelle = require('./cartelle.js');
 const Endpoint = require('./endpoint.js');
 const constants = new Config().config;
 
@@ -20,8 +19,7 @@ app.get('/', function(req, res) {
     res.render('template-main', { viewname: 'index', options: false, viewport: true });
 });
 app.get('/cartelle-sel', function(req, res) {
-    cards = new Cartelle();
-    res.render('template-main', { viewname: 'show_cartelle', options: { card: cards.generaCartella() }, viewport: true });
+    res.render('template-main', { viewname: 'show_cartelle', options: { card: '' }, viewport: true });
 });
 
 app.get('/endpoint/:endpoint_name/', function(req, res) {
