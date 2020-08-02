@@ -8,19 +8,37 @@
                 <input type="text" name="room_name" placeholder="Nome stanza" class="form-input" autocomplete="off" id="room_name" />
                 <input type="submit" value="Entra" class="btn" />
             </form>
+            <p id="1st_panel_msgs" class="msg-box"></p>
         </div>
         <div id="content_msgs" class="hidden">
-            <div id="msgs_box"></div>
+            <h2 id="2nd_panel_msgs" class="title-2"></h2>
+            <button class="btn btn-fade-link" data-page="/tabellone/">Vai al tabellone</button>
+            <p style="margin: 1.5em 0;">- oppure -</p>
+            <button class="btn btn-fade-link" data-page="/cartelle-sel/">Scegli le cartelle</button>
         </div>
     </div>
 </div>
 
 <script>
-
+$(document).ready(function () {
     $('#room_select_form').submit(function(e){
         e.preventDefault();
-        $('#msgs_box').html('Nome: ' + $('#room_name').val());
-        switchPanel('#content_start', '#content_msgs');
+
+        $.getJSON('/endpoint/room_select/?room_name=' + $('#room_name').val(), function (res) {
+            if (res.status == 'OK') {
+                $('#2nd_panel_msgs').html('Stanza: ' + res.data.room_name);
+                $('.btn-fade-link').data('slug', res.data.room_slug);
+                switchPanel('#content_start', '#content_msgs');
+            } else {
+                $('#1st_panel_msgs').addClass('red').html(res.message);
+            }
+        });
+    });
+
+    $('.btn-fade-link').click(function () {
+        $('.page').fadeOut(500, function() {
+            window.location.href = $('.btn-fade-link').data('page') + $('.btn-fade-link').data('slug');
+        });
     });
 
     function switchPanel(from, to) {
@@ -28,4 +46,5 @@
             $(to).fadeIn(500);
         });
     }
+});
 </script>

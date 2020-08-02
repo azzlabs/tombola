@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="seven col">
+        <div class="table-container">
+            <table id="tavola">&nbsp;</table>
+        </div>
+        <div class="bottom-links">
+            <span class="link" id="btnReset">Reset</span> / 
+            <span class="link" id="btnRefresh" data-state="on">Aggiornamento automatico: on</span>
+            <!--span class="link" id="btnShow" data-state="all">Mostra: tutto</span-->
+        </div>
+    </div>
+
+    <div class="five col">
+        <div class="center-text">
+            <h1 class="title">TOMBOLA!</h1>
+            <div class="panel last-called">
+                <div class="btn-holder">
+                    <button class="btn call" id="btnCall">Estrai</button>
+                </div>
+                <p>Ultimi estratti:</p>
+                <div id="last-called-holder">
+                    <!-- JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- scripts -->
+<script src="/public/vendor/jquery-3.4.1.min.js"></script>
+<script src="/public/script_tabellone.js"></script>

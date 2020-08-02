@@ -3,8 +3,8 @@ module.exports = class Tombola {
         this.RandTools = require('./rand_tools.js');
     }
 
-    newGame (room_name) {
-        var game_data = { room_name: room_name, board: { remaining_numbers: [], called_list: [], last_called: -1 }, cards: [] };
+    newGame (room_name, room_slug) {
+        var game_data = { room_name: room_name, room_slug: room_slug, board: { remaining_numbers: [], called_list: [], last_called: -1 }, cards: [] };
 
         for (var i = 1; i <= 90; i++) 
             game_data.board.remaining_numbers.push(i);

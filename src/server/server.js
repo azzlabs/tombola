@@ -18,8 +18,11 @@ app.set('views', __dirname + '/views');
 app.get('/', function(req, res) {
     res.render('template-main', { viewname: 'index', options: false, viewport: true });
 });
-app.get('/cartelle-sel', function(req, res) {
-    res.render('template-main', { viewname: 'show_cartelle', options: { card: '' }, viewport: true });
+app.get('/tabellone/:slug/', function(req, res) {
+    res.render('template-main', { viewname: 'tabellone', options: { room_slug: req.params.slug }, viewport: true });
+});
+app.get('/cartelle-sel/:slug/', function(req, res) {
+    res.render('template-main', { viewname: 'show_cartelle', options: { room_slug: req.params.slug }, viewport: true });
 });
 
 app.get('/endpoint/:endpoint_name/', function(req, res) {

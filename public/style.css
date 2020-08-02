@@ -20,6 +20,10 @@ h1.title {
     color: #D1574A; 
     font-size: 80px;
 }
+.title-2 {
+    font-size: 1.6em;
+    margin-bottom: 2em;
+}
 .container {
     margin: 0 auto;
     width: 1320px;
@@ -193,6 +197,14 @@ h1.title {
 .hidden {
     display: none;
 }
+.msg-box {
+    margin: 30px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.msg-box.green { color: #63925a; }
+.msg-box.red { color: #d1574a; }
+.msg-box.orange { color: #e68e34; }
 
 #tavola {
     width: 100%;
