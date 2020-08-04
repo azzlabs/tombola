@@ -1,5 +1,6 @@
 var timer_update = null;
 var last_called = 0;
+var ok_status = null;
 
 $(document).ready(function() {
     console.log('Ready!');
@@ -13,27 +14,28 @@ $(document).ready(function() {
     startUpdate();
     $('#tavola').html(table);
     $('#btnCall').click(function() {
-        $.getJSON('edit.php?action=estrai', function(res) {
-            if (res.ok == 0) {
-                printNum(res.data.last_called.toString(), '#last-called-holder', 'big-number');
-                $('#number-' + res.data.last_called).addClass('called');
-                last_called = res.data.last_called;
+        $.getJSON('/endpoint/board_extract/?room_name=' + board_options.room_slug, function(res) {
+            if (res.status === 'OK') {
+                printNum(res.data.board.last_called.toString(), '#last-called-holder', 'big-number');
+                $('#number-' + res.data.board.last_called).addClass('called');
+                last_called = res.data.board.last_called;
             } else {
-                console.log(res.msg);
-                if (res.ok == 2) alert('Tabellone pieno: resettalo!');
+                console.log(res.message);
+                if (res.status === 'WARN') 
+                    alert(res.message + ' Tabellone pieno: resettalo!');
             }
         });
     });
     $('#btnReset').click(function() {
         $('.number').removeClass('called');
         $('#last-called-holder').html('');
-        $.getJSON('edit.php?action=reset');
+        $.getJSON('/endpoint/board_reset/?room_name=' + board_options.room_slug);
     });
     $('#btnRefresh').click(function() {
         if ($(this).data('state') == 'on') {
             $(this).html('Aggiornamento automatico: off');
             $(this).data('state', 'off');
-            clearInterval(timer_update);
+            stopUpdate();
         } else {
             $(this).html('Aggiornamento automatico: on');
             $(this).data('state', 'on');
@@ -42,24 +44,43 @@ $(document).ready(function() {
     });
 });
 
-function startUpdate() {
-    timer_update = setInterval(function() { 
-        $.getJSON('/endpoint/get_board/?room_name=55', function(res) {
-            if (res.data.last_called != last_called) {
-                if (res.data.last_called == -1) $('#btnReset').trigger('click');
-                $.each(res.data.called_list, function(pos, num) {
+function startUpdate() { timer_update = setInterval(getRoom, 1000); }
+function stopUpdate() { clearInterval(timer_update); }
+
+function getRoom() {
+    $.getJSON('/endpoint/get_board/?room_name=' + board_options.room_slug, function(res) {
+        var status = true;
+
+        if (res.status === 'OK') {
+            if (res.data.board.last_called != last_called) {
+                if (res.data.board.last_called == -1) $('#btnReset').trigger('click');
+                $.each(res.data.board.called_list, function(pos, num) {
                     $('#number-' + num).addClass('called');
                 });
                 $('#last-called-holder').html('');
-                for (var i = res.data.called_list.length - 4; i < res.data.called_list.length; i++) {
+                for (var i = res.data.board.called_list.length - 4; i < res.data.board.called_list.length; i++) {
                     if (i >= 0) {
-                        printNum(res.data.called_list[i].toString(), '#last-called-holder', 'big-number');
+                        printNum(res.data.board.called_list[i].toString(), '#last-called-holder', 'big-number');
                     }
                 }
-                last_called = res.data.last_called;
+                last_called = res.data.board.last_called;
             }
-        });
-    }, 1000);
+        } else {
+            status = false;
+            console.log(res.message);
+        }
+
+        if (ok_status === null || status != ok_status) {
+            ok_status = status;
+
+            if (ok_status) {
+                switchPanel('#global_msgs', '#board');
+            } else {
+                switchPanel('#board', '#global_msgs');
+                $('#global_msgs').html(res.message).addClass('red');
+            }
+        }
+    });
 }
 
 function printNum(num, container_sel, items_sel) {
@@ -70,4 +91,15 @@ function printNum(num, container_sel, items_sel) {
     $(container_sel).prepend(elem + '</div></div>');
     if ($(container_sel + '> div').children().length > 4)
         $(container_sel + '> div').last().remove();
+}
+
+function switchPanel(from, to) {
+    if (($(from).css('display') == 'none')) {
+        console.log('hidden');
+        $(to).fadeIn(500);
+    } else {
+        $(from).fadeOut(500, function() {
+            $(to).fadeIn(500);
+        });
+    }
 }

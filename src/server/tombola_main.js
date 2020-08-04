@@ -57,4 +57,18 @@ module.exports = class Tombola {
 
         return card;
     }
+
+    extractNumber (board_data, count = 1) {
+        const tools = new this.RandTools();
+
+        for (var i = 0; i < count; i++) {
+            tools.distRandInitStatic(board_data.remaining_numbers);
+
+            board_data.last_called = tools.distRandNext();
+            board_data.called_list.push(board_data.last_called);
+            board_data.remaining_numbers = tools.dist_rand;
+        }
+
+        return board_data;
+    }
 }

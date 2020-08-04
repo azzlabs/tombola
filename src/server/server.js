@@ -19,7 +19,7 @@ app.get('/', function(req, res) {
     res.render('template-main', { viewname: 'index', options: false, viewport: true });
 });
 app.get('/tabellone/:slug/', function(req, res) {
-    res.render('template-main', { viewname: 'tabellone', options: { room_slug: req.params.slug }, viewport: true });
+    res.render('template-main', { viewname: 'tabellone', options: { fe_opt: { room_slug: req.params.slug } }, viewport: true });
 });
 app.get('/cartelle-sel/:slug/', function(req, res) {
     res.render('template-main', { viewname: 'show_cartelle', options: { room_slug: req.params.slug }, viewport: true });

@@ -1,4 +1,8 @@
 module.exports = class RandTools {
+    constructor() {
+        this.dist_rand = [];
+    }
+
     // Genera numero random, min e max inclusi
     randInt (min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
