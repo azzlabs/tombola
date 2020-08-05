@@ -5,6 +5,14 @@ module.exports = class Rooms {
         this.storage_path = '../shared/db-rooms/';
     }
 
+    /** 
+     * Restituisce una stanza di gioco. 
+     * Eventualmente, se non esiste il file corrispondente, la crea.
+     * 
+     * @param {string} room_name     Nome della stanza
+     * @param {bool} [create_new]    Se a "true", e la stanza non esiste, crea e inizializza una stanza nuova
+     * @returns {object}             Restituisce la struttura di una stanza, oppure false
+     */
     getRoom (room_name, create_new = false) {
         if (room_name.length > 1 && room_name.match(/^[0-9a-zA-Z_\s-]+$/)) {
             const clean_name = room_name.replace(/[\W_]+/g, '_');
@@ -31,9 +39,14 @@ module.exports = class Rooms {
         }
     }
 
+    /** 
+     * Salva su file la stanza modificata
+     * 
+     * @param {string} room_slug     Slug della stanza (nome file)
+     * @param {object} room_data     Struttura della stanza da salvare
+     */
     saveRoom (room_slug, room_data) {
-        // TODO
-        // if (!room_slug.match(/[\W_]+$/)) return false;
+        if (room_slug.match(/^[0-9a-zA-Z_]+$/) == null) return false;
 
         this.fs.writeFile(require('path').resolve(__dirname, this.storage_path + room_slug + '.json'), JSON.stringify(room_data), function (err) {
             if (err) return console.error(err);

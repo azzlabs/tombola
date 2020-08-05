@@ -22,7 +22,7 @@ $(document).ready(function() {
             } else {
                 console.log(res.message);
                 if (res.status === 'WARN') 
-                    alert(res.message + ' Tabellone pieno: resettalo!');
+                    showAlert(res.message);
             }
         });
     });
@@ -102,4 +102,19 @@ function switchPanel(from, to) {
             $(to).fadeIn(500);
         });
     }
+}
+
+function showAlert(alert_text, panel_id = '#alert_panel', timeout = 2000) {
+    $(panel_id + ' > h1').html(alert_text);
+    showPanel(panel_id, timeout);
+}
+
+function showPanel(panel_id, timeout = false) {
+    $(panel_id).fadeIn(100, function() { 
+        $(panel_id).animate({ zoom: 1.1, speed: 200 }, { easing: 'swing', done: function() { 
+                $(panel_id).animate({ zoom: 1, speed: 100 }, { easing: 'swing' });
+            } 
+        });
+    });
+    if (timeout !== false) setTimeout(function() { $(panel_id).fadeOut(200) }, timeout);
 }

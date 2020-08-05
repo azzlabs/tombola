@@ -3,20 +3,57 @@ module.exports = class Tombola {
         this.RandTools = require('./rand_tools.js');
     }
 
+    /** 
+     * Inizializza la struttura di un nuovo gioco
+     * 
+     * @param {string} room_name    Il nome della stanza
+     * @param {string} room_slug    Lo slug della stanza (nome del file senza spazi)
+     * @returns {object}            Restituisce la struttura completa della stanza
+     */
     newGame (room_name, room_slug) {
-        var game_data = { room_name: room_name, room_slug: room_slug, board: { remaining_numbers: [], called_list: [], last_called: -1 }, cards: [] };
+        var game_data = { room_name: room_name, room_slug: room_slug, board: this.genBoard(), cards: [] };
 
-        for (var i = 1; i <= 90; i++) 
-            game_data.board.remaining_numbers.push(i);
-
-        for (var i = 1; i <= 30; i++) 
+        for (var i = 0; i < 30; i++) 
             game_data.cards.push({ taken: false, content: this.genCard() });
 
         return game_data;
     }
 
-    genCard () {
+    /** 
+     * Inizializza la struttura di un nuovo gioco, mantenendo le cartelle già create
+     * 
+     * @param {object} game_data    La struttura della stanza da resettare
+     * @returns {object}            Restituisce la struttura completa della stanza
+     */
+    resetGame (game_data) {
+        game_data.board = this.genBoard()
 
+        for (var i = 0; i < game_data.cards.length; i++) 
+            game_data.cards[i].taken = false;
+
+        return game_data;
+    }
+
+    /** 
+     * Inizializza un tabellone
+     * 
+     * @returns {object}  Restituisce la struttura di un tabellone vuoto
+     */
+    genBoard () {
+        var board = { remaining_numbers: [], called_list: [], last_called: -1 };
+
+        for (var i = 1; i <= 90; i++) 
+            board.remaining_numbers.push(i);
+        
+        return board;
+    }
+
+    /** 
+     * Genera una cartella casualmente
+     * 
+     * @returns {object}  Restituisce la struttura di una cartella
+     */
+    genCard () {
         const tools = new this.RandTools(); 
         const extract_pool = [];
         var card = [[], [], []];
@@ -58,15 +95,24 @@ module.exports = class Tombola {
         return card;
     }
 
+    /** 
+     * Estrae uno o più numeri dal tabellone
+     * 
+     * @param {object} board_data   La struttura standard di un tabellone
+     * @param {number} [count]      Numeri da estrarre (default = 1)
+     * @returns {object}            Restituisce il tabellone modificato
+     */
     extractNumber (board_data, count = 1) {
         const tools = new this.RandTools();
 
         for (var i = 0; i < count; i++) {
-            tools.distRandInitStatic(board_data.remaining_numbers);
+            if (board_data.remaining_numbers.length > 0) {
+                tools.distRandInitStatic(board_data.remaining_numbers);
 
-            board_data.last_called = tools.distRandNext();
-            board_data.called_list.push(board_data.last_called);
-            board_data.remaining_numbers = tools.dist_rand;
+                board_data.last_called = tools.distRandNext();
+                board_data.called_list.push(board_data.last_called);
+                board_data.remaining_numbers = tools.dist_rand;
+            } else return board_data;
         }
 
         return board_data;

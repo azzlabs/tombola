@@ -202,9 +202,25 @@ h1.title {
     font-size: 1.2em;
     font-weight: bold;
 }
-.msg-box.green { color: #63925a; }
-.msg-box.red { color: #d1574a; }
-.msg-box.orange { color: #e68e34; }
+.green { color: #63925a; }
+.red { color: #d1574a; }
+.orange { color: #e68e34; }
+
+.alert-panel.panel {
+    position: fixed;
+    top: 8%;
+    left: 50%;
+    width: auto;
+    min-height: auto;
+    max-width: 90%;
+    transform: translateX(-50%);
+    box-shadow: 4px 4px #c01d002c;
+    display: none;
+}
+.alert-panel.panel h1 {
+    margin: 20px 60px;
+    font-size: 3em;
+}
 
 #tavola {
     width: 100%;
