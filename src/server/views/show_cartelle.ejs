@@ -1,10 +1,42 @@
 <h1 class="title center-text">TOMBOLA!</h1>
-<table>
-    <% for (var i = 0; i < options.card.length; i++) { %>
-        <tr>
-            <% for (var j = 0; j < options.card[i].length; j++) { %>
-                <td><%= card[i][j] != -1 ? options.card[i][j] : '' %></td>
-            <% } %>
-        </tr>
-    <% } %>
-</table>
+<div class="container">
+    <div class="panel center-text">
+        <div class="twelve col"><div>
+    </div>
+</div>
+
+<%- '<script>const fe_options = ' + JSON.stringify(options.fe_opt) + '</script>' %>
+<script>
+    $.getJSON('/endpoint/get_cards/?room_name=' + fe_options.room_slug, function(res) {
+        const cards = res.data.cards;
+        const selected_cards = JSON.parse(sessionStorage.selected_cards);
+
+        selected_cards.forEach(card_i => {
+            var card = cards[card_i];
+            var table = $('<table>').addClass('table-container single-card');
+            table.append($('<tr>').append($('<td>').attr('colspan', '9').text('Cartella n°' + (card_i + 1))));
+
+            for (var i = 0; i < card.content.length; i++) {
+                var tr = $('<tr>');
+                
+                for (var j = 0; j < card.content[i].length; j++) { 
+                    var n = card.content[i][j];
+                    
+                    tr.append(
+                        $('<td>').append(
+                            $('<div>').addClass('card-number').text(n != -1 ? n : ' ')
+                        ).addClass(n != -1 ? 'selectable' : 'n')
+                    );
+                }
+
+                table.append(tr);
+            }
+
+            $('.panel').append($('<div>').addClass('four col').append(table));
+        });
+            
+        $('td.selectable').click(function() {
+            $(this).toggleClass('selected');
+        });
+    });
+</script>

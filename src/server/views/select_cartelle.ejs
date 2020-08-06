@@ -1,0 +1,52 @@
+<h1 class="title center-text">TOMBOLA!</h1>
+<div class="container">
+    <div class="panel center-text">
+        <div class="twelve col">
+            <h2 class="center-text">Scegli cartelle</h2>
+            <button class="btn btn-fade-link mb-3" data-page="/cartelle/" data-slug="<%= options.room_slug %>">Gioca!</button>
+        </div>
+
+        <% options.the_room.cards.forEach((card, index) => { %>
+
+            <div class="four col">
+                <table class="table-container single-card selectable" data-card="<%= index %>">
+                    <tr><td colspan="9">Cartella n°<%= index + 1 %></td></tr>
+
+                    <% for (var i = 0; i < card.content.length; i++) { %>
+                        <tr>
+                            <% for (var j = 0; j < card.content[i].length; j++) { %>
+                                <td><div class="card-number"><%= card.content[i][j] != -1 ? card.content[i][j] : ' ' %></div></td>
+                            <% } %>
+                        </tr>
+                    <% } %>
+
+                </table>
+            </div>
+
+        <% }); %>
+
+        <div class="clearfix"></div>
+    </div>
+</div> 
+
+<script>
+    $('.single-card').click(function() {
+        $(this).toggleClass('selected');
+    });
+
+    $('.btn-fade-link').click(function () {
+        var btn = this;
+        var selected_cards = [];
+
+        $('.single-card.selected').each(function() {
+            console.log($(this).data('card'));
+            selected_cards.push($(this).data('card'));
+        });
+
+        sessionStorage.setItem('selected_cards', JSON.stringify(selected_cards));
+
+        $('.page').fadeOut(500, function() {
+            window.location.href = $(btn).data('page') + $(btn).data('slug');
+        });
+    });
+</script>

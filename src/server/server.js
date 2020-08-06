@@ -1,6 +1,5 @@
 const express = require('express');
 const Config = require('./config.js');
-const Endpoint = require('./endpoint.js');
 const constants = new Config().config;
 
 // Setup an Express server
@@ -22,10 +21,16 @@ app.get('/tabellone/:slug/', function(req, res) {
     res.render('template-main', { viewname: 'tabellone', options: { fe_opt: { room_slug: req.params.slug } }, viewport: true });
 });
 app.get('/cartelle-sel/:slug/', function(req, res) {
-    res.render('template-main', { viewname: 'show_cartelle', options: { room_slug: req.params.slug }, viewport: true });
+    const Rooms = new (require('./rooms.js'));
+    let the_room = Rooms.getRoom(req.params.slug);
+    res.render('template-main', { viewname: 'select_cartelle', options: { room_slug: req.params.slug, the_room: the_room }, viewport: true });
+});
+
+app.get('/cartelle/:slug/', function(req, res) {
+    res.render('template-main', { viewname: 'show_cartelle', options: { fe_opt: { room_slug: req.params.slug } }, viewport: true });
 });
 
 app.get('/endpoint/:endpoint_name/', function(req, res) {
-    const ep = new Endpoint();
-    ep.dispatchEndpoint(res, req.params.endpoint_name, req.query);
+    const Endpoint = new (require('./endpoint.js'));
+    Endpoint.dispatchEndpoint(res, req.params.endpoint_name, req.query);
 });

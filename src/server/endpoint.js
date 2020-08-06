@@ -34,6 +34,17 @@ module.exports = class Endpoint {
                 } else return this.sendEndpoint(res, false, 'ERR', 'La stanza non esiste');
                 break;
 
+            /* Ottiene le cartelle di una stanza */
+            case 'get_cards':
+                if (typeof params.room_name === 'undefined') return this.sendEndpoint(res, false, 'ERR', 'Nome della stanza obbligatorio');
+
+                the_room = Rooms.getRoom(params.room_name);
+
+                if (the_room !== false) {
+                    result.data = { room_name: the_room.room_name, cards: the_room.cards };
+                } else return this.sendEndpoint(res, false, 'ERR', 'La stanza non esiste');
+                break;
+
             /* Estrae un numero per il tabellone */
             case 'board_extract':
                 if (typeof params.room_name === 'undefined') return this.sendEndpoint(res, false, 'ERR', 'Nome della stanza obbligatorio');

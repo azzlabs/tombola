@@ -36,8 +36,9 @@ $(document).ready(function () {
     });
 
     $('.btn-fade-link').click(function () {
+        var btn = this;
         $('.page').fadeOut(500, function() {
-            window.location.href = $('.btn-fade-link').data('page') + $('.btn-fade-link').data('slug');
+            window.location.href = $(btn).data('page') + $(btn).data('slug');
         });
     });
 

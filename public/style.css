@@ -40,7 +40,7 @@ h1.title {
     content: '.';
     visibility: hidden;
 }
-.one.col,
+
 .one.col    { width: 4.66666666667%; }
 .two.col    { width: 13.3333333333%; }
 .three.col  { width: 22%;            }
@@ -221,6 +221,71 @@ h1.title {
     margin: 20px 60px;
     font-size: 3em;
 }
+
+.single-card {
+    table-layout: fixed;
+    background-color: #ffffff;
+    border-spacing: 0;
+    user-select: none;
+    border: 1px solid #eaeaea;
+}
+.single-card.selectable:hover {
+    background-color: #f7f7f7;
+    cursor: pointer;
+}
+.single-card.selected {
+    background-color: #f2fdff;
+    border: 1px solid #77ebff;
+}
+.single-card td {
+    border-left: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+    position: relative;
+    /* height: 40px; */
+}
+.single-card td:last-child {
+    border-right: 1px solid #eaeaea;
+}
+.single-card tr:first-child td {
+    border-top: 1px solid #eaeaea;
+    height: 25px;
+    font-weight: bold;
+    font-size: .8em;
+    position: initial;
+}
+.single-card tr:first-child td::after {
+    display: none;
+}
+
+.single-card td::after {
+    content: '';
+    display: block;
+    margin-top: 100%;
+}
+.single-card td .card-number {
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+}
+.single-card td.selectable:hover {
+    background-color: #f7f7f7;
+    cursor: pointer;
+}
+.single-card td.selectable.selected {
+    background: url('images/cardboard_pedina.png') no-repeat center center;
+    background-size: cover;
+    color: rgba(0, 0, 0, 0);
+}
+
+.mb-1 { margin-bottom: 0.5em; }
+.mb-2 { margin-bottom: 1.0em; }
+.mb-3 { margin-bottom: 1.5em; }
+.mb-4 { margin-bottom: 2.0em; }
+.mb-5 { margin-bottom: 2.5em; }
+.mb-6 { margin-bottom: 3.0em; }
 
 #tavola {
     width: 100%;
