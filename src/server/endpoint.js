@@ -9,7 +9,7 @@ module.exports = class Endpoint {
     dispatchEndpoint(res, endpoint_name, params) {
         const Rooms = new (require('./rooms.js'));
         var the_room;
-        var result = { status: 'OK', data: false, message: '' };
+        var result = { status: 'OK', data: false, message: 'Result' };
 
         switch (endpoint_name) {
             /* Seleziona o crea la stanza */
@@ -42,6 +42,37 @@ module.exports = class Endpoint {
 
                 if (the_room !== false) {
                     result.data = { room_name: the_room.room_name, cards: the_room.cards };
+                } else return this.sendEndpoint(res, false, 'ERR', 'La stanza non esiste');
+                break;
+
+            /* Ottiene le cartelle in uso di una stanza */
+            case 'get_used_cards':
+                if (typeof params.room_name === 'undefined') return this.sendEndpoint(res, false, 'ERR', 'Nome della stanza obbligatorio');
+
+                the_room = Rooms.getRoom(params.room_name);
+
+                var used_cards = [];
+                for (var i = 0; i < the_room.cards.length; i++) {
+                    used_cards[i] = the_room.cards[i].taken;
+                }
+
+                if (the_room !== false) {
+                    result.data = { room_name: the_room.room_name, cards: used_cards };
+                } else return this.sendEndpoint(res, false, 'ERR', 'La stanza non esiste');
+                break;
+
+            /* Ottiene le cartelle in uso di una stanza */
+            case 'set_used_card':
+                if (typeof params.room_name === 'undefined') return this.sendEndpoint(res, false, 'ERR', 'Nome della stanza obbligatorio');
+                if (typeof params.card_sel === 'undefined') return this.sendEndpoint(res, false, 'ERR', 'Stato carta assente');
+                if (typeof params.card_id === 'undefined') return this.sendEndpoint(res, false, 'ERR', 'ID carta assente');
+
+                the_room = Rooms.getRoom(params.room_name);
+
+                if (the_room !== false) {
+                    the_room.cards[params.card_id].taken = (params.card_sel == 'true');
+                    Rooms.saveRoom(params.room_name, the_room);
+                    result.message = 'Stato aggiornato';
                 } else return this.sendEndpoint(res, false, 'ERR', 'La stanza non esiste');
                 break;
 

@@ -1,42 +1,82 @@
 <h1 class="title center-text">TOMBOLA!</h1>
 <div class="container">
     <div class="panel center-text">
-        <div class="twelve col"><div>
+        <div class="twelve col">
+            <button class="btn btn-fade-link mt-1 mb-3" id="btnClear">Pulisci cartelle</button>
+        </div>
+    </div>
+    <div class="bottom-links mb-3">
+        <a class="link" href="../cartelle-sel/<%= options.fe_opt.room_slug %>">&laquo; torna alla selezione cartelle</a>
     </div>
 </div>
 
 <%- '<script>const fe_options = ' + JSON.stringify(options.fe_opt) + '</script>' %>
 <script>
-    $.getJSON('/endpoint/get_cards/?room_name=' + fe_options.room_slug, function(res) {
-        const cards = res.data.cards;
-        const selected_cards = JSON.parse(sessionStorage.selected_cards);
+    $(document).ready(function() {
+        $.getJSON('/endpoint/get_cards/?room_name=' + fe_options.room_slug, function(res) {
+            if (res.status === 'OK') {
+                const cards = res.data.cards;
+                const selected_cards = JSON.parse(sessionStorage.selected_cards);
 
-        selected_cards.forEach(card_i => {
-            var card = cards[card_i];
-            var table = $('<table>').addClass('table-container single-card');
-            table.append($('<tr>').append($('<td>').attr('colspan', '9').text('Cartella n°' + (card_i + 1))));
+                selected_cards.forEach(card_i => {
+                    const card = cards[card_i];
+                    const table = $('<table>').addClass('table-container single-card');
+                    table.append($('<tr>').append($('<td>').attr('colspan', '9').text('Cartella n°' + (card_i + 1))));
 
-            for (var i = 0; i < card.content.length; i++) {
-                var tr = $('<tr>');
-                
-                for (var j = 0; j < card.content[i].length; j++) { 
-                    var n = card.content[i][j];
+                    var card_save = JSON.parse(sessionStorage.getItem('card_' + card_i));
+                    if (card_save == null) card_save = [];
+
+                    for (var i = 0; i < card.content.length; i++) {
+                        var tr = $('<tr>');
+                        
+                        for (var j = 0; j < card.content[i].length; j++) { 
+                            var n = card.content[i][j];
+                            
+                            tr.append(
+                                $('<td>').append(
+                                    $('<div>').addClass('card-number').data('cartella', card_i).text(n != -1 ? n : ' ')
+                                ).addClass(n != -1 ? 'selectable' : 'n').addClass(card_save.includes(n) ? 'selected' : 'n')
+                            );
+                        }
+
+                        table.append(tr);
+                    }
+
+                    $('.panel').append($('<div>').addClass('four col').append(table));
+                });
+                $('.panel').append($('<div>').addClass('clearfix'));
                     
-                    tr.append(
-                        $('<td>').append(
-                            $('<div>').addClass('card-number').text(n != -1 ? n : ' ')
-                        ).addClass(n != -1 ? 'selectable' : 'n')
-                    );
-                }
+                $('td.selectable').click(function() {
+                    $(this).toggleClass('selected');
 
-                table.append(tr);
+                    const number = parseInt($(this).children('.card-number').text());
+                    const card_n = $(this).children('.card-number').data('cartella');
+                    var card_save = JSON.parse(sessionStorage.getItem('card_' + card_n));
+
+                    if (card_save !== null) {
+                        if ($(this).hasClass('selected')) {
+                            card_save.push(number);
+                        } else {    
+                            card_save.splice(card_save.indexOf(number), 1);
+                        }
+                    } else {
+                        card_save = [];
+                        if ($(this).hasClass('selected')) {
+                            card_save.push(number);
+                        }
+                    }
+                    sessionStorage.setItem('card_' + card_n, JSON.stringify(card_save));
+                });
             }
 
-            $('.panel').append($('<div>').addClass('four col').append(table));
+            console.log(res.message);
         });
-            
-        $('td.selectable').click(function() {
-            $(this).toggleClass('selected');
+
+        $('#btnClear').click(function() {
+            var cards = sessionStorage.getItem('selected_cards');
+            sessionStorage.clear();
+            sessionStorage.setItem('selected_cards', cards);
+            $('td.selected').removeClass('selected');
         });
     });
 </script>

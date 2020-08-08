@@ -27,9 +27,7 @@ $(document).ready(function() {
         });
     });
     $('#btnReset').click(function() {
-        $('.number').removeClass('called');
-        $('#last-called-holder').html('');
-        $.getJSON('/endpoint/board_reset/?room_name=' + board_options.room_slug);
+        resetBoard(true);
     });
     $('#btnRefresh').click(function() {
         if ($(this).data('state') == 'on') {
@@ -53,7 +51,7 @@ function getRoom() {
 
         if (res.status === 'OK') {
             if (res.data.board.last_called != last_called) {
-                if (res.data.board.last_called == -1) $('#btnReset').trigger('click');
+                if (res.data.board.last_called == -1) resetBoard();
                 $.each(res.data.board.called_list, function(pos, num) {
                     $('#number-' + num).addClass('called');
                 });
@@ -81,6 +79,12 @@ function getRoom() {
             }
         }
     });
+}
+
+function resetBoard(reset_room = false) {
+    $('.number').removeClass('called');
+    $('#last-called-holder').html('');
+    if (reset_room) $.getJSON('/endpoint/board_reset/?room_name=' + board_options.room_slug);
 }
 
 function printNum(num, container_sel, items_sel) {
