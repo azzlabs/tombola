@@ -42,9 +42,11 @@ $(document).ready(function() {
     });
 });
 
+// Avvia e arresta il timer di aggiornamento del tabellone
 function startUpdate() { timer_update = setInterval(getRoom, 1000); }
 function stopUpdate() { clearInterval(timer_update); }
 
+// Ottiene i dati dall'endpoint e aggiorna il tabellone
 function getRoom() {
     $.getJSON('/endpoint/get_board/?room_name=' + board_options.room_slug, function(res) {
         var status = true;
@@ -73,6 +75,12 @@ function getRoom() {
 
             if (ok_status) {
                 switchPanel('#global_msgs', '#board');
+                
+                if (mobileCheck()) {
+                    console.log('Oh, you\'re on mobile!');
+                    $('#fullscreenAlert').fadeIn();
+                    $('body').addClass('smartphone');
+                }
             } else {
                 switchPanel('#board', '#global_msgs');
                 $('#global_msgs').html(res.message).addClass('red');
@@ -81,12 +89,14 @@ function getRoom() {
     });
 }
 
+// Pulisce il tabellone
 function resetBoard(reset_room = false) {
     $('.number').removeClass('called');
     $('#last-called-holder').html('');
     if (reset_room) $.getJSON('/endpoint/board_reset/?room_name=' + board_options.room_slug);
 }
 
+// Aggiunge un numero al contenitore degli ultimi numeri chiamati
 function printNum(num, container_sel, items_sel) {
     var elem = '<div class="called-number"><div class="called-number-container">';
     if (num < 10) elem += '<div class="' + items_sel + ' n0"></div>';
@@ -97,6 +107,7 @@ function printNum(num, container_sel, items_sel) {
         $(container_sel + '> div').last().remove();
 }
 
+// Swap dei pannelli a schermo
 function switchPanel(from, to) {
     if (($(from).css('display') == 'none')) {
         console.log('hidden');
@@ -108,11 +119,13 @@ function switchPanel(from, to) {
     }
 }
 
+// Mostra un alert al centro dello schermo con messaggio <alert_text> per <timeout> secondi (def. 2 secondi)
 function showAlert(alert_text, panel_id = '#alert_panel', timeout = 2000) {
     $(panel_id + ' > h1').html(alert_text);
     showPanel(panel_id, timeout);
 }
 
+// Cambia la visibiltià di un pannello a schermo per <timeout> secondi (def. disabilitato)
 function showPanel(panel_id, timeout = false) {
     $(panel_id).fadeIn(100, function() { 
         $(panel_id).animate({ zoom: 1.1, speed: 200 }, { easing: 'swing', done: function() { 

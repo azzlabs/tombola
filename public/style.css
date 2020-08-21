@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body {
-    background-color: #F5EACE;
+    background-color: #f5eace;
     font-family: "Montserrat", sans-serif;
 }
 tr, td {
@@ -30,6 +30,9 @@ h1.title {
 }
 .container {
     margin: 0 auto;
+    width: 1320px;
+}
+.container.board {
     width: 1320px;
 }
 .col {
@@ -305,4 +308,66 @@ h1.title {
 }
 #tavola tr td:nth-child(5n) {
     padding-right: 20px;
+}
+
+@media (max-width: 1320px) {
+    .container {
+        width: 100%;
+    }
+    .card-number {
+        font-size: 1.5vw;
+    }
+}
+
+@media (max-width: 750px) {
+    .container {
+        width: 100%;
+    }
+
+    h1.title {
+        font-size: 16vw;
+    }
+
+    .mobi-collapse > .col {
+        width: 100% !important;
+        margin-left: 0;
+    }
+
+    .card-number {
+        font-size: 1em;
+    }
+
+    .panel.home {
+        width: 100%;
+    }
+}
+
+body.smartphone h1.title {
+    font-size: 14vw;
+}
+body.smartphone .page, body.smartphone:fullscreen::backdrop {
+    background-color: #f5eace;
+}
+body.smartphone .page {
+    zoom: 0.45;
+    overflow: hidden;
+}
+
+.fullscreenAlert {
+    color: #ffffff;
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0;
+    bottom: 0;
+    background-color: #000000; 
+    height: 100vh;
+    width: 100vw;
+    display: none;
+    text-align: center;
+    font-size: 1.5em;
+    z-index: 9999999999;
+}
+.fullscreenAlert img {
+    width: 60%;
 }

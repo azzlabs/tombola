@@ -1,4 +1,4 @@
-<div class="container hidden" id="board">
+<div class="container hidden board" id="board">
     <div class="seven col">
         <div class="table-container">
             <table id="tavola">&nbsp;</table>
@@ -24,13 +24,16 @@
             </div>
         </div>
     </div>
+
+    <div class="clearfix"></div>
 </div>
 
 <div class="panel alert-panel red" id="alert_panel">
     <h1></h1>
 </div>
 
-<!-- scripts -->
+<!-- Scripts -->
 <%- '<script>const board_options = ' + JSON.stringify(options.fe_opt) + '</script>' %>
 <script src="/public/vendor/jquery-3.4.1.min.js"></script>
 <script src="/public/script_tabellone.js"></script>
+<script src="/public/fullscreen.js"></script>

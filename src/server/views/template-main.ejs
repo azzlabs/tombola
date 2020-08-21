@@ -5,8 +5,8 @@
     <% if (viewport) { %><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><% } %>
 
     <link href="/public/style.css" rel="stylesheet">
-    <link rel="icon" href="/public/favicon.png" type="image/png" />
-    <meta name="theme-color" content="#100e17">
+    <link rel="icon" href="/public/favicon.ico" type="image/png" />
+    <meta name="theme-color" content="#f5eace">
     
     <!-- jQuery -->
     <script src="/public/vendor/jquery-3.4.1.min.js"></script>
@@ -16,6 +16,12 @@
     <div id="global_msgs" class="msg-box hidden center-text"></div>
     <div class="page">
         <%- include(viewname, options); %>
+    </div>
+
+    <div class="fullscreenAlert" id="fullscreenAlert">
+        <p><img src="/public/images/fullscreen_white.svg"></p>
+        <p>Hey! Sembra che stai<br> usando uno smartphone.<br><strong><u>Vai a schemo intero!</u></strong></p>
+        <p style="font-size: 0.5em; margin-top: 2em;">Se usi IOS, prima vergognati,<br>poi <a href="javascript:hidefsalert()">clicca qui</a> e ruota lo schermo</p>
     </div>
 </body>
 </html>

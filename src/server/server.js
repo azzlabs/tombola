@@ -2,18 +2,21 @@ const express = require('express');
 const Config = require('./config.js');
 const constants = new Config().config;
 
-// Setup an Express server
+// Setup server Express
 const app = express();
+// Route statiche per gli assets
 app.use('/public', express.static('public', { root: __dirname + '/../..' }));
 app.use('/favicon.ico', express.static('public/favicon.ico', { root: __dirname + '/../..' }));
 
-// Listen on port
+// Apre il server sulla porta scelta in config
 app.listen(constants.port);
 console.log(`Server listening on port ${constants.port}`);
 
+// Setup di EJS
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
+// Tutte le route
 app.get('/', function(req, res) {
     res.render('template-main', { viewname: 'index', options: false, viewport: true });
 });
