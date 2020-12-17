@@ -31,11 +31,11 @@ $(document).ready(function() {
     });
     $('#btnRefresh').click(function() {
         if ($(this).data('state') == 'on') {
-            $(this).html('Aggiornamento automatico: off');
+            $(this).html('Sincronizza: off');
             $(this).data('state', 'off');
             stopUpdate();
         } else {
-            $(this).html('Aggiornamento automatico: on');
+            $(this).html('Sincronizza: on');
             $(this).data('state', 'on');
             startUpdate();
         }

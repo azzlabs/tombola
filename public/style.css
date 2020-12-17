@@ -155,6 +155,11 @@ h1.title {
     box-shadow: none;
     transform: translate(4px, 4px);
 }
+.inline-btn {
+    font-weight: bold;
+    border-bottom: 1px dashed white;
+    font-size: 1.2em;
+}
 .bottom-links {
     color: #bbb093;
     text-align: center;
@@ -289,6 +294,16 @@ h1.title {
     background: url('images/cardboard_pedina.png') no-repeat center center;
     background-size: cover;
     color: rgba(0, 0, 0, 0);
+}
+.not-found {
+    padding: 3em 0;
+}
+.not-found h1 {
+    font-size: 4em;
+    line-height: 0.8em;
+}
+.not-found h1 small {
+    font-size: 0.6em;
 }
 
 .mb-1 { margin-bottom: 0.5em; }
