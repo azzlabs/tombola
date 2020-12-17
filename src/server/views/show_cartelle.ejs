@@ -16,14 +16,14 @@
         $.getJSON('/endpoint/get_cards/?room_name=' + fe_options.room_slug, function(res) {
             if (res.status === 'OK') {
                 const cards = res.data.cards;
-                const selected_cards = JSON.parse(sessionStorage.selected_cards);
+                const selected_cards = JSON.parse(localStorage.selected_cards);
 
                 selected_cards.forEach(card_i => {
                     const card = cards[card_i];
                     const table = $('<table>').addClass('table-container single-card');
                     table.append($('<tr>').append($('<td>').attr('colspan', '9').text('Cartella n°' + (card_i + 1))));
 
-                    var card_save = JSON.parse(sessionStorage.getItem('card_' + card_i));
+                    var card_save = JSON.parse(localStorage.getItem('card_' + card_i));
                     if (card_save == null) card_save = [];
 
                     for (var i = 0; i < card.content.length; i++) {
@@ -51,7 +51,7 @@
 
                     const number = parseInt($(this).children('.card-number').text());
                     const card_n = $(this).children('.card-number').data('cartella');
-                    var card_save = JSON.parse(sessionStorage.getItem('card_' + card_n));
+                    var card_save = JSON.parse(localStorage.getItem('card_' + card_n));
 
                     if (card_save !== null) {
                         if ($(this).hasClass('selected')) {
@@ -65,7 +65,7 @@
                             card_save.push(number);
                         }
                     }
-                    sessionStorage.setItem('card_' + card_n, JSON.stringify(card_save));
+                    localStorage.setItem('card_' + card_n, JSON.stringify(card_save));
                 });
             }
 
@@ -73,9 +73,9 @@
         });
 
         $('#btnClear').click(function() {
-            var cards = sessionStorage.getItem('selected_cards');
-            sessionStorage.clear();
-            sessionStorage.setItem('selected_cards', cards);
+            var cards = localStorage.getItem('selected_cards');
+            localStorage.clear();
+            localStorage.setItem('selected_cards', cards);
             $('td.selected').removeClass('selected');
         });
     });

@@ -11,7 +11,7 @@ module.exports = class Tombola {
      * @returns {object}            Restituisce la struttura completa della stanza
      */
     newGame (room_name, room_slug) {
-        var game_data = { room_name: room_name, room_slug: room_slug, board: this.genBoard(), cards: [] };
+        var game_data = { room_name: room_name, room_slug: room_slug, board: this.genBoard(), cards: [], last_reset: Date.now() };
 
         for (var i = 0; i < 30; i++) 
             game_data.cards.push({ taken: false, content: this.genCard() });
@@ -26,7 +26,8 @@ module.exports = class Tombola {
      * @returns {object}            Restituisce la struttura completa della stanza
      */
     resetGame (game_data) {
-        game_data.board = this.genBoard()
+        game_data.board = this.genBoard();
+        game_data.last_reset = Date.now();
 
         for (var i = 0; i < game_data.cards.length; i++) 
             game_data.cards[i].taken = false;

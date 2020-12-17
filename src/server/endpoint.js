@@ -57,7 +57,7 @@ module.exports = class Endpoint {
                 }
 
                 if (the_room !== false) {
-                    result.data = { room_name: the_room.room_name, cards: used_cards };
+                    result.data = { room_name: the_room.room_name, cards: used_cards, last_reset: the_room.last_reset };
                 } else return this.sendEndpoint(res, false, 'ERR', 'La stanza non esiste');
                 break;
 

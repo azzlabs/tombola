@@ -39,6 +39,6 @@ app.get('/endpoint/:endpoint_name/', function(req, res) {
     const Endpoint = new (require('./endpoint.js'));
     Endpoint.dispatchEndpoint(res, req.params.endpoint_name, req.query);
 });
-app.use(function(req, res, next) {
+app.use(function(req, res) {
     res.status(404).render('template-main', { viewname: 'not_found', viewport: true, options: [] });
 });

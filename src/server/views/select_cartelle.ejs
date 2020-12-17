@@ -35,11 +35,16 @@
 <%- '<script>const fe_options = ' + JSON.stringify(options.fe_opt) + '</script>' %>
 <script>
     $(document).ready(function() {
+        // Inizializzo il timestamp di last_reset
+        if (localStorage.getItem('last_reset') === null) {
+            localStorage.setItem('last_reset', 100);
+        }
+
         $('.single-card').click(function() {
             if ($(this).hasClass('selectable')) {
                 $(this).toggleClass('selected');
 
-                var selected_cards = JSON.parse(sessionStorage.getItem('selected_cards'));
+                var selected_cards = JSON.parse(localStorage.getItem('selected_cards'));
                 if (selected_cards !== null) {
                     if ($(this).hasClass('selected')) {
                         selected_cards.push($(this).data('card'));
@@ -52,7 +57,7 @@
                         selected_cards.push($(this).data('card'));
                     }
                 }
-                sessionStorage.setItem('selected_cards', JSON.stringify(selected_cards));
+                localStorage.setItem('selected_cards', JSON.stringify(selected_cards));
 
                 $.getJSON('/endpoint/set_used_card/?room_name=' + fe_options.room_slug + '&card_id=' + $(this).data('card') + 
                 '&card_sel=' + $(this).hasClass('selected'), function(res) {
@@ -71,7 +76,7 @@
         setInterval(function() {
             $.getJSON('/endpoint/get_used_cards/?room_name=' + fe_options.room_slug, function(res) {
                 if (res.status === 'OK') {
-                    var selected_cards = JSON.parse(sessionStorage.getItem('selected_cards'));
+                    var selected_cards = JSON.parse(localStorage.getItem('selected_cards'));
                     if (selected_cards === null) selected_cards = [];
 
                     res.data.cards.forEach((taken, index) => {
@@ -82,10 +87,19 @@
                             if (taken) {
                                 $('.card_' + index).addClass('selected');
                             } else {
-                                sessionStorage.setItem('selected_cards', '[]');
+                                // Svuota il localstorage in caso di reset MA
+                                // No buono -> Può generare un desync e bloccare cartelle
+                                // localStorage.setItem('selected_cards', '[]');
                             }
                         }
                     });
+
+                    // Controllo se devo resettare il localstorage, basato su timestamp
+                    if (localStorage.getItem('last_reset') < res.data.last_reset) {
+                        localStorage.setItem('last_reset', res.data.last_reset);
+                        localStorage.setItem('selected_cards', '[]');
+                        console.log('LocalStorage reset');
+                    }
                 }
 
                 console.log(res.message);
