@@ -36,6 +36,21 @@ module.exports = class Tombola {
     }
 
     /** 
+     * Rilascia tutte le cartelle "prenotate"
+     * 
+     * @param {object} game_data    La struttura della stanza da resettare
+     * @returns {object}            Restituisce la struttura completa della stanza
+     */
+    resetCards (game_data) {
+        game_data.last_reset = Date.now();
+
+        for (var i = 0; i < game_data.cards.length; i++) 
+            game_data.cards[i].taken = false;
+
+        return game_data;
+    }
+
+    /** 
      * Inizializza un tabellone
      * 
      * @returns {object}  Restituisce la struttura di un tabellone vuoto

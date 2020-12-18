@@ -74,8 +74,10 @@
 
         $('#btnClear').click(function() {
             var cards = localStorage.getItem('selected_cards');
+            var last_reset = localStorage.getItem('last_reset');
             localStorage.clear();
             localStorage.setItem('selected_cards', cards);
+            localStorage.setItem('last_reset', last_reset);
             $('td.selected').removeClass('selected');
         });
     });

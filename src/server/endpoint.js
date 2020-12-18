@@ -104,10 +104,21 @@ module.exports = class Endpoint {
                     Rooms.saveRoom(params.room_name, Tombola.resetGame(the_room));
 
                 } else return this.sendEndpoint(res, false, 'ERR', 'La stanza non esiste');
-
                 break;
 
-            /* Debug. Ritorna i valori dei parametri della request */
+            /* Rilascio delle cartelle */
+            case 'cards_reset':
+                if (typeof params.room_name === 'undefined') return this.sendEndpoint(res, false, 'ERR', 'Nome della stanza obbligatorio');
+
+                the_room = Rooms.getRoom(params.room_name);
+
+                if (the_room !== false) {
+                    const Tombola = new (require('./tombola_main.js'));
+                    Rooms.saveRoom(params.room_name, Tombola.resetCards(the_room));
+                } else return this.sendEndpoint(res, false, 'ERR', 'La stanza non esiste');
+                break;
+
+            /* Debug. Restituisce i valori dei parametri della request */
             case 'echo':
                 result.data = { endpoint_name, params };
                 break;

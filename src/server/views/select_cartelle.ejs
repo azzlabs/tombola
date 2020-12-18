@@ -28,7 +28,8 @@
         <div class="clearfix"></div>
     </div>
     <div class="bottom-links mb-3">
-        <a class="link" href="/">&laquo; torna alla pagina principale</a>
+        <a class="link" href="/">&laquo; torna alla pagina principale</a> / 
+        <span class="link" id="btnRelase">Rilascia tutte</span>
     </div>
 </div> 
 
@@ -73,16 +74,28 @@
             });
         });
 
+        $('#btnRelase').click(function() {
+            $.getJSON('/endpoint/cards_reset/?room_name=' + fe_options.room_slug, function(res) {
+                localStorage.setItem('selected_cards', '[]');
+                $('.single-card.selected').removeClass('selected');
+                console.log('Sent clear request');
+            });
+        });
+
         setInterval(function() {
             $.getJSON('/endpoint/get_used_cards/?room_name=' + fe_options.room_slug, function(res) {
                 if (res.status === 'OK') {
                     var selected_cards = JSON.parse(localStorage.getItem('selected_cards'));
                     if (selected_cards === null) selected_cards = [];
 
+                    // Per ogni cartella dal server
                     res.data.cards.forEach((taken, index) => {
+                        // Controllo se è stata selezionata dal client (localStorage)
                         if (!selected_cards.includes(index)) {
+
                             $('.card_' + index).toggleClass('selectable', !taken).toggleClass('disabled', taken);
-                            if (!taken) $('.card_' + index).removeClass('selected', !taken);
+
+                            if (!taken) $('.card_' + index).removeClass('selected');
                         } else {
                             if (taken) {
                                 $('.card_' + index).addClass('selected');
@@ -98,6 +111,7 @@
                     if (localStorage.getItem('last_reset') < res.data.last_reset) {
                         localStorage.setItem('last_reset', res.data.last_reset);
                         localStorage.setItem('selected_cards', '[]');
+                        $('.single-card.selected').removeClass('selected');
                         console.log('LocalStorage reset');
                     }
                 }
