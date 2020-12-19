@@ -1,5 +1,5 @@
 # Tombola!
-###Una tombola, anche proiettabile, scritta in JavaScript per NodeJS!
+### Una tombola, anche proiettabile, scritta in JavaScript per NodeJS!
 
 ![Logo Tombola!](/public/images/logo.png)
 
