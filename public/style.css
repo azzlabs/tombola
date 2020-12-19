@@ -18,6 +18,9 @@ a, a:hover, a:active, a:visited, a:focus {
     text-decoration: none;
     color: unset;
 }
+p a:hover {
+    border-bottom: 1px dashed #000000;
+}
 h1.title {
     margin: 20px 0;
     text-shadow: 1px 2px #C63B3D;
