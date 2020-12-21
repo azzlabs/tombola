@@ -2,7 +2,8 @@ module.exports = class Rooms {
 
     constructor () {
         this.fs = require('fs');
-        this.storage_path = '../shared/db-rooms/';
+        const Conf = new (require('./config.js'));
+        this.storage_path = Conf.config.storage_path;
     }
 
     /** 
