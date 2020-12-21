@@ -9,7 +9,7 @@ E' possibile giocare diverse partite contemporaneamente: all'apertura verrà chi
 Per iniziare a giocare basta inserire il nome della stanza.
 
 #### Le cartelle
-Dopo aver inserito il nome della stanza, selezionando "scegli le cartelle" si può scegliere le cartelle da giocare, che vengono generate casuelmente e uniche per ogni stanza. Quando sono state selezionate le cartelle da giocare, cliccando su "gioca" si visualizzeranno le cartelle scelte e sarà possibile giocare cliccando sui numeri per coprirli o scoprirli in base ai numeri estratti.
+Dopo aver inserito il nome della stanza, selezionando "scegli le cartelle" si può scegliere le cartelle da giocare, che vengono generate casualmente e uniche per ogni stanza. Quando sono state selezionate le cartelle da giocare, cliccando su "gioca" si visualizzeranno le cartelle scelte e sarà possibile giocare cliccando sui numeri per coprirli o scoprirli in base ai numeri estratti.
 Se tutti i giocatori sono sincronizzati sulla stessa stanza, saranno disponibili un totale di 30 cartelle tra cui ogni giocatore potrà scegliere quelle desiderate: come nel gioco classico una cartella non può essere presa da più di un giocatore!
 
 #### Il tabellone
