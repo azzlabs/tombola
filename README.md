@@ -31,3 +31,5 @@ Una volta avviata, Tombola! si aprirà sull'indirizzo di default `localhost:3000
 Se si vuole modificare la configurazione, come ad esempio la porta di ascolto del server, è sufficiente copiare il file `config.json.example` in `config.json` e impostare la configurazione desiderata.
 Data la semplicità dell'app, Tombola! non utilizza un DBMS per la permanenza dai dati ma si appoggia ad alcuni file .json.
 Se doveste riscontrare problemi nell'esecuzione, è necessario controllare che la cartella `src/shared/db-rooms` sia scrivibile dal server node.
+
+Danke a @fratorgano per il testing. Se qualcosa non va, prendetevala con lui. Obv scherzo. Forse.
