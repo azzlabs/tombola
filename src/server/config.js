@@ -9,7 +9,8 @@ module.exports = class Config {
 
         this.config = config !== false ? config : {
             port: 3000,
-            storage_path: '../shared/db-rooms/'
+            storage_path: '../shared/db-rooms/',
+            varbode: true
         }
     }
 }
