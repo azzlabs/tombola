@@ -1,7 +1,7 @@
 # Tombola!
 ### Una semplice tombola proiettabile, scritta in JavaScript per NodeJS!
 
-![Logo Tombola!](/public/images/logo.png)
+![Logo Tombola!](https://raw.githubusercontent.com/azzlabs/tombola/master/public/images/logo.png)
 
 ## Utilizzo
 #### Stanze
@@ -19,7 +19,7 @@ Attenzione: il tabellone è pensato per funzionare su smartphone e su schermi 10
 
 È disponibile un'istanza del gioco al sito [tombola.azzlabs.eu](https://tombola.azzlabs.eu)
 
-![Screenshot Tombola!](/public/images/screenshot.jpg)
+![Screenshot Tombola!](https://raw.githubusercontent.com/azzlabs/tombola/master/public/images/screenshot.jpg)
 
 ## Installazione
 Tombola! è stata scritta per node.js
