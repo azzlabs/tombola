@@ -4,6 +4,7 @@ module.exports = class Rooms {
         this.fs = require('fs');
         const Conf = new (require('./config.js'));
         this.storage_path = Conf.config.storage_path;
+        this.verbose = Conf.config.verbose;
     }
 
     /** 
@@ -28,9 +29,10 @@ module.exports = class Rooms {
                     var tombola = new Tombola();
                     const new_game = tombola.newGame(room_name, clean_name);
     
+                    const self = this;
                     this.fs.writeFile(require('path').resolve(__dirname, this.storage_path + clean_name + '.json'), JSON.stringify(new_game), function (err) {
                         if (err) return console.error(err);
-                        console.log('Created new room');
+                        self.log('Created new room: ' + clean_name);
                     });
                     return new_game;
                 } else return false;
@@ -49,9 +51,19 @@ module.exports = class Rooms {
     saveRoom (room_slug, room_data) {
         if (room_slug.match(/^[0-9a-zA-Z_]+$/) == null) return false;
 
+        const self = this;
         this.fs.writeFile(require('path').resolve(__dirname, this.storage_path + room_slug + '.json'), JSON.stringify(room_data), function (err) {
             if (err) return console.error(err);
-            console.log('Edited room');
+            self.log('Edited room ' + room_slug);
         });
+    }
+
+    /** 
+     * Logging modifica file
+     * 
+     * @param {string} text     Log entry
+     */
+    log (text) {
+        if (this.verbose) console.log(text);
     }
 }

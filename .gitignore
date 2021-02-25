@@ -2,3 +2,4 @@
 /npm-debug.log
 /src/shared/db-rooms/*.json
 /config.json
+/docker-compose.yml

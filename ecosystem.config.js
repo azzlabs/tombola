@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name: 'tombola-ajax',
+    name: 'tombola',
     script: 'src/server/server.js',
     watch: false
   }]
